@@ -1,0 +1,71 @@
+# tif preferences
+#
+# first written: 4-Jul-2013
+#
+#################################################
+
+BLOCK RESETPATHS ;
+BLOCK ASYNCPATHS ;
+
+  BANK 0 VCCIO 3.3 V;
+  BANK 1 VCCIO 3.3 V;
+  BANK 2 VCCIO 3.3 V;
+  BANK 3 VCCIO 3.3 V;
+
+TRACEID "00111100" ;
+
+IOBUF ALLPORTS IO_TYPE=LVCMOS33 ;
+
+SYSCONFIG  JTAG_PORT=DISABLE  SDM_PORT=PROGRAMN  I2C_PORT=ENABLE  SLAVE_SPI_PORT=DISABLE ;
+
+#################################################
+
+    USERCODE ASCII  "TIF0"      ;
+##  USERCODE HEX    "01020304"  ;
+
+    LOCATE COMP "SPARE_1"       SITE "A13";
+    LOCATE COMP "GSRn"          SITE "A12"; # spare_2 used as global reset
+
+    LOCATE COMP "K24"           SITE "C1" ; # clock from CP2112
+    LOCATE COMP "SUSPEND"       SITE "E3" ; # from CP2112
+
+    LOCATE COMP "RedLedPad"     SITE "P7" ;
+    LOCATE COMP "GreenLedPad"   SITE "P9" ;
+
+## left connector
+    LOCATE COMP "L1"            SITE "A2" ;
+    LOCATE COMP "L2"            SITE "B1" ;
+    LOCATE COMP "L5"            SITE "E1" ;
+    LOCATE COMP "L6"            SITE "F1" ;
+    LOCATE COMP "L7"            SITE "H1" ;
+    LOCATE COMP "L8"            SITE "J1" ;
+    LOCATE COMP "L9"            SITE "K1" ;
+    LOCATE COMP "L10"           SITE "M1" ;
+
+## right connector
+    LOCATE COMP "R1"            SITE "B14";
+    LOCATE COMP "SCL"           SITE "C8" ;
+    LOCATE COMP "SDA"           SITE "B8" ; # also appears on A7 and B7
+    LOCATE COMP "SCK"           SITE "M4" ;
+    LOCATE COMP "MISO"          SITE "N4" ; # also appears on P4
+    LOCATE COMP "MOSI"          SITE "P13";
+    LOCATE COMP "R10"           SITE "P2" ;
+
+##  Unused and/or system pads:
+##
+##  LOCATE COMP "INITn"         SITE "B13"; # not routed
+##  LOCATE COMP "PROGn"         SITE "C10"; # not routed
+##
+##  LOCATE COMP "TMSPad"        SITE "A6" ;
+##  LOCATE COMP "TCKPad"        SITE "B6" ; # also appears on C6
+##  LOCATE COMP "TDIPad"        SITE "B4" ; # also appears on A3 and B3
+##  LOCATE COMP "TDOPad"        SITE "A4" ;
+##
+##  LOCATE COMP "JTAGenPad"     SITE "C9" ; # also appears on B9
+
+
+##  FREQUENCY NET "KLK/clkIn" 24.0 MHz HOLD_MARGIN 0.5 nS ;
+
+    IOBUF PORT "GSRn" IO_TYPE=LVCMOS33 PULLMODE=UP ;
+
+## EOF ##########################################
